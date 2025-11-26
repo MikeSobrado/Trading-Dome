@@ -20,6 +20,7 @@ const corsOptions = {
       'https://mikesobrado.github.io',
       'https://MikeSobrado.github.io',
       'https://trading-dome-dashboard.onrender.com',
+      'https://trading-dome.netlify.app',
       'https://github.com'
     ];
     
