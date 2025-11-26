@@ -1,0 +1,106 @@
+/**
+ * variables.css
+ * Variables CSS centralizadas para el tema
+ */
+
+:root {
+  /* Colores primarios */
+  --color-primary: #00d4ff;
+  --color-primary-dark: #00a8cc;
+  --color-secondary: #ff6b6b;
+  --color-tertiary: #4ecdc4;
+
+  /* Colores de fondo */
+  --bg-dark: #0f0f1e;
+  --bg-darker: #0a0a15;
+  --bg-light: #1a1a2e;
+  --bg-lighter: #2a2a3e;
+  --bg-panel: #16213e;
+
+  /* Colores de texto */
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0b0;
+  --text-tertiary: #707080;
+  --text-muted: #505060;
+
+  /* Colores de estado */
+  --color-success: #2ecc71;
+  --color-warning: #f39c12;
+  --color-danger: #e74c3c;
+  --color-info: #3498db;
+
+  /* Sombras */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.3);
+  --shadow-xl: 0 16px 32px rgba(0, 0, 0, 0.4);
+
+  /* Espaciado */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+
+  /* Bordes */
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+  --border-radius-full: 50%;
+
+  /* Transiciones */
+  --transition-fast: 150ms ease-in-out;
+  --transition-normal: 300ms ease-in-out;
+  --transition-slow: 500ms ease-in-out;
+
+  /* Tipografía */
+  --font-family-base: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-base: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 20px;
+  --font-size-2xl: 24px;
+  --font-size-3xl: 32px;
+
+  /* Z-index */
+  --z-index-base: 1;
+  --z-index-dropdown: 100;
+  --z-index-modal: 1000;
+  --z-index-tooltip: 1100;
+
+  /* ===== VARIABLES DE TEMA (tema oscuro por defecto) ===== */
+  /* Definidas en themes.css, aquí están como fallback */
+  --theme-container-bg: linear-gradient(135deg, rgba(26, 26, 26, 0.8), rgba(15, 15, 15, 0.9));
+  --theme-card-bg: linear-gradient(135deg, #1a1a1a, #0f0f0f);
+  --theme-card-bg-secondary: rgba(0, 212, 255, 0.1);
+  --theme-header-bg: rgba(0, 212, 255, 0.05);
+  --theme-input-bg: rgba(0, 212, 255, 0.1);
+  --theme-border-primary: rgba(0, 212, 255, 0.2);
+  --theme-border-secondary: rgba(0, 212, 255, 0.1);
+  --theme-border-hover: rgba(0, 212, 255, 0.3);
+  --theme-text-primary: #ffffff;
+  --theme-text-secondary: #a0a0b0;
+  --theme-text-muted: #707080;
+  --theme-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+
+  /* ===== MODO DE FONDO ===== */
+  /* Controlado por light-mode.css y dark-mode (clases) */
+  --mode-page-bg: #0f0f1e;
+  --mode-content-bg: #0f0f1e;
+}
+
+/* ===== LIGHT MODE (fondo claro, mantiene el tema actual) ===== */
+body.light-mode {
+  /* Cambiar SOLO el fondo de la página */
+  --mode-page-bg: #f8f8f8 !important;
+  --mode-content-bg: #f8f8f8 !important;
+}
+
+/* ===== DARK MODE (fondo oscuro, mantiene el tema actual) ===== */
+body.dark-mode {
+  /* Cambiar SOLO el fondo de la página */
+  --mode-page-bg: #0f0f1e !important;
+  --mode-content-bg: #0f0f1e !important;
+}

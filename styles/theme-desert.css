@@ -1,0 +1,281 @@
+/**
+ * theme-desert.css
+ * Tema Visual DESERT (colores cálidos: dorado y crema)
+ * 
+ * Todas las reglas específicas para el tema desert están centralizadas aquí.
+ * Selector: body.theme-desert
+ * 
+ * Colores principales:
+ * - Header/Primary: #F5B616 (Dorado)
+ * - Panel de Decisión: #FFFAC2 (Crema/Amarillo claro)
+ * 
+ * Estructura:
+ * 1. Variables del tema
+ * 2. Estilos específicos del tema desert
+ */
+
+/* ===== 1. VARIABLES DEL TEMA DESERT ===== */
+body.theme-desert {
+  /* Colores primarios */
+  --color-primary: #F5B616;
+  --color-primary-dark: #D4941A;
+  --color-secondary: #ff6b6b;
+  --color-tertiary: #FFFAC2;
+
+  /* Colores de fondo */
+  --bg-dark: #2a2410;
+  --bg-darker: #1a1608;
+  --bg-light: #3d3520;
+  --bg-lighter: #4d4630;
+  --bg-panel: #2d2510;
+
+  /* Colores de texto */
+  --text-primary: #ffffff;
+  --text-secondary: #e8e0d0;
+  --text-tertiary: #c9bfaf;
+  --text-muted: #a89f8f;
+
+  /* Contenedor y elementos */
+  --theme-container-bg: linear-gradient(135deg, rgba(42, 36, 16, 0.8), rgba(26, 22, 8, 0.9));
+  --theme-card-bg: linear-gradient(135deg, #3d3520, #2d2510);
+  --theme-card-bg-secondary: rgba(245, 182, 22, 0.1);
+  --theme-header-bg: rgba(245, 182, 22, 0.1);
+  --theme-input-bg: rgba(245, 182, 22, 0.08);
+  
+  /* Bordes temáticos */
+  --theme-border-primary: rgba(245, 182, 22, 0.3);
+  --theme-border-secondary: rgba(245, 182, 22, 0.15);
+  --theme-border-hover: rgba(245, 182, 22, 0.4);
+  
+  /* Colores de texto temáticos */
+  --theme-text-primary: #ffffff;
+  --theme-text-secondary: #e8e0d0;
+  --theme-text-muted: #a89f8f;
+  
+  /* Sombras temáticas */
+  --theme-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+/* ===== 2. ESTILOS ESPECÍFICOS DEL TEMA DESERT ===== */
+
+/* Panel de decisión (LONG/WAIT/SHORT) con fondo crema */
+body.theme-desert .decision-panel,
+body.theme-desert .decision-container {
+  background: linear-gradient(135deg, #FFFAC2, #FFFEF5);
+  color: #2a2410;
+  border: 2px solid #F5B616;
+  box-shadow: 0 4px 15px rgba(245, 182, 22, 0.2);
+}
+
+/* Headers con color dorado */
+body.theme-desert .decision-panel h5,
+body.theme-desert .decision-container h5,
+body.theme-desert .card-header h5 {
+  color: #F5B616;
+}
+
+/* Botones de decisión con tema desert */
+body.theme-desert .btn-decision,
+body.theme-desert .decision-btn {
+  background: #F5B616;
+  color: #2a2410;
+  border: 2px solid #D4941A;
+}
+
+body.theme-desert .btn-decision:hover,
+body.theme-desert .decision-btn:hover {
+  background: #D4941A;
+  color: #FFFAC2;
+}
+
+/* Cards con tema desert */
+body.theme-desert .card {
+  background: linear-gradient(135deg, #3d3520, #2d2510);
+  border: 1px solid rgba(245, 182, 22, 0.2);
+}
+
+body.theme-desert .card-header {
+  background: rgba(245, 182, 22, 0.1);
+  border-bottom: 1px solid rgba(245, 182, 22, 0.2);
+}
+
+/* Inputs con tema desert */
+body.theme-desert .form-control,
+body.theme-desert input[type="text"],
+body.theme-desert input[type="number"],
+body.theme-desert textarea {
+  background: rgba(245, 182, 22, 0.08);
+  border: 1px solid rgba(245, 182, 22, 0.2);
+  color: #ffffff;
+}
+
+body.theme-desert .form-control:focus,
+body.theme-desert input:focus,
+body.theme-desert textarea:focus {
+  background: rgba(245, 182, 22, 0.12);
+  border-color: #F5B616;
+  box-shadow: 0 0 0 0.2rem rgba(245, 182, 22, 0.25);
+}
+
+/* Links con tema desert */
+body.theme-desert a {
+  color: #F5B616;
+}
+
+body.theme-desert a:hover {
+  color: #FFFAC2;
+}
+
+/* Indicadores y badges con tema desert */
+body.theme-desert .badge,
+body.theme-desert .indicator {
+  background: rgba(245, 182, 22, 0.2);
+  color: #F5B616;
+  border: 1px solid #F5B616;
+}
+
+/* Tables con tema desert */
+body.theme-desert table {
+  border-color: rgba(245, 182, 22, 0.1);
+}
+
+body.theme-desert thead,
+body.theme-desert .table-header {
+  background: rgba(245, 182, 22, 0.1);
+  color: #F5B616;
+  border-bottom: 2px solid #F5B616;
+}
+
+body.theme-desert tbody tr:hover {
+  background: rgba(245, 182, 22, 0.05);
+}
+
+/* Scrollbar con tema desert */
+body.theme-desert::-webkit-scrollbar-thumb {
+  background: #F5B616;
+}
+
+body.theme-desert::-webkit-scrollbar-thumb:hover {
+  background: #D4941A;
+}
+
+/* Columna de Fecha - texto negro en tema desert */
+body.theme-desert .table-responsive-scrollable tbody tr td:nth-child(1) {
+  color: #000000 !important;
+}
+
+/* Columnas de Par, Entrada, Salida y Cantidad - texto negro en tema desert */
+body.theme-desert .table-responsive-scrollable tbody tr td:nth-child(2),   /* Par */
+body.theme-desert .table-responsive-scrollable tbody tr td:nth-child(4),   /* Entrada */
+body.theme-desert .table-responsive-scrollable tbody tr td:nth-child(5),   /* Salida */
+body.theme-desert .table-responsive-scrollable tbody tr td:nth-child(6) {  /* Cantidad */
+  color: #000000 !important;
+}
+
+/* Columna de Lado - LONG verde, SHORT rojo en tema desert */
+body.theme-desert .table-responsive-scrollable tbody tr td:nth-child(3) .badge-long {
+  color: #00AA00 !important;
+  background-color: rgba(0, 170, 0, 0.2) !important;
+}
+
+body.theme-desert .table-responsive-scrollable tbody tr td:nth-child(3) .badge-short {
+  color: #FF0000 !important;
+  background-color: rgba(255, 0, 0, 0.2) !important;
+}
+
+/* Tabla con scroll - fondo crema en tema desert */
+body.theme-desert .table-responsive-scrollable {
+  background: #FFFAC2 !important;
+  scrollbar-color: #F5B616 rgba(245, 182, 22, 0.2) !important;
+}
+
+/* Scrollbar de tablas/posiciones cerradas con tema desert */
+body.theme-desert .table-responsive-scrollable::-webkit-scrollbar-thumb {
+  background: #F5B616 !important;
+  border-radius: 10px;
+}
+
+body.theme-desert .table-responsive-scrollable::-webkit-scrollbar-thumb:hover {
+  background: #D4941A !important;
+}
+
+/* Tabla de posiciones abiertas - fondo crema en tema desert */
+body.theme-desert .table-responsive-scrollable-abiertas {
+  background: #FFFAC2 !important;
+  scrollbar-color: #F5B616 rgba(245, 182, 22, 0.2) !important;
+}
+
+/* Texto negro en columnas específicas de posiciones abiertas */
+body.theme-desert .table-responsive-scrollable-abiertas tbody tr td:nth-child(1),   /* Par */
+body.theme-desert .table-responsive-scrollable-abiertas tbody tr td:nth-child(3),   /* Entrada */
+body.theme-desert .table-responsive-scrollable-abiertas tbody tr td:nth-child(4),   /* Equilibrio */
+body.theme-desert .table-responsive-scrollable-abiertas tbody tr td:nth-child(5),   /* Actual */
+body.theme-desert .table-responsive-scrollable-abiertas tbody tr td:nth-child(6),   /* Cantidad */
+body.theme-desert .table-responsive-scrollable-abiertas tbody tr td:nth-child(9) {  /* Apalancamiento */
+  color: #000000 !important;
+}
+
+/* Columna de Lado - LONG verde, SHORT rojo en posiciones abiertas */
+body.theme-desert .table-responsive-scrollable-abiertas tbody tr td:nth-child(2) .badge-long {
+  color: #00AA00 !important;
+  background-color: rgba(0, 170, 0, 0.2) !important;
+}
+
+body.theme-desert .table-responsive-scrollable-abiertas tbody tr td:nth-child(2) .badge-short {
+  color: #FF0000 !important;
+  background-color: rgba(255, 0, 0, 0.2) !important;
+}
+
+/* Icono en columna Acción - negro para contraste */
+body.theme-desert .table-responsive-scrollable-abiertas tbody tr td:nth-child(10) i {
+  color: #000000 !important;
+}
+
+/* Scrollbar de posiciones abiertas con tema desert */
+body.theme-desert .table-responsive-scrollable-abiertas::-webkit-scrollbar-thumb {
+  background: #F5B616 !important;
+  border-radius: 10px;
+}
+
+body.theme-desert .table-responsive-scrollable-abiertas::-webkit-scrollbar-thumb:hover {
+  background: #D4941A !important;
+}
+
+/* Gráficas en Monitoreo - fondo crema */
+body.theme-desert .monitoreo-card .card-body {
+  background: #FFFAC2 !important;
+}
+
+/* Botón Añadir Indicador centrado */
+.text-center #add-indicator-btn {
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Inputs de thresholds con colores temáticos en Safari */
+body.theme-desert #green-threshold {
+  color: #00AA00 !important;
+}
+
+body.theme-desert #green-threshold::placeholder {
+  color: rgba(0, 170, 0, 0.6) !important;
+}
+
+body.theme-desert #yellow-threshold {
+  color: #FF9800 !important;
+}
+
+body.theme-desert #yellow-threshold::placeholder {
+  color: rgba(255, 152, 0, 0.6) !important;
+}
+
+body.theme-desert #red-threshold {
+  color: #FF0000 !important;
+}
+
+body.theme-desert #red-threshold::placeholder {
+  color: rgba(255, 0, 0, 0.6) !important;
+}
+

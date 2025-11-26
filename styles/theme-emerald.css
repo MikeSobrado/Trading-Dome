@@ -1,0 +1,63 @@
+/**
+ * theme-emerald.css
+ * Tema Visual VERDE/ESMERALDA (tema-dark - por defecto)
+ * 
+ * Todas las reglas específicas para el tema verde están centralizadas aquí.
+ * Este es el tema por defecto.
+ * 
+ * Estructura:
+ * 1. Variables del tema
+ * 2. Estilos específicos del tema verde
+ */
+
+/* ===== 1. VARIABLES DEL TEMA VERDE/ESMERALDA ===== */
+/* Por defecto, heredadas de :root en variables.css */
+/* Se redefinen aquí para claridad y para poder usarlas con selectores theme-dark */
+
+body.theme-dark {
+  /* Colores primarios */
+  --color-primary: #00d4ff;
+  --color-primary-dark: #00a8cc;
+  --color-secondary: #ff6b6b;
+  --color-tertiary: #4ecdc4;
+
+  /* Colores de fondo */
+  --bg-dark: #0f0f1e;
+  --bg-darker: #0a0a15;
+  --bg-light: #1a1a2e;
+  --bg-lighter: #2a2a3e;
+  --bg-panel: #16213e;
+
+  /* Colores de texto */
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0b0;
+  --text-tertiary: #707080;
+  --text-muted: #505060;
+
+  /* Contenedor y elementos */
+  --theme-container-bg: linear-gradient(135deg, rgba(26, 26, 26, 0.8), rgba(15, 15, 15, 0.9));
+  --theme-card-bg: linear-gradient(135deg, #1a1a1a, #0f0f0f);
+  --theme-card-bg-secondary: rgba(0, 212, 255, 0.1);
+  --theme-header-bg: rgba(0, 212, 255, 0.05);
+  --theme-input-bg: rgba(0, 212, 255, 0.1);
+  
+  /* Bordes temáticos */
+  --theme-border-primary: rgba(0, 212, 255, 0.2);
+  --theme-border-secondary: rgba(0, 212, 255, 0.1);
+  --theme-border-hover: rgba(0, 212, 255, 0.3);
+  
+  /* Colores de texto temáticos */
+  --theme-text-primary: #ffffff;
+  --theme-text-secondary: #a0a0b0;
+  --theme-text-muted: #707080;
+  
+  /* Sombras temáticas */
+  --theme-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== 2. ESTILOS ESPECÍFICOS DEL TEMA VERDE ===== */
+/* Si en el futuro hay componentes que se vean diferente en tema verde, aquí van */
+
+/* Nota: El tema verde es el por defecto, así que la mayoría de estilos generales
+   ya lo contemplan. Este archivo es principalmente para documentación y futuras
+   extensiones específicas del tema. */

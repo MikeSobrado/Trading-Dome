@@ -1,0 +1,67 @@
+/**
+ * theme-azure.css
+ * Tema Visual AZUL (tema-light)
+ * 
+ * Todas las reglas específicas para el tema azul están centralizadas aquí.
+ * Seleccionar este tema con: body.theme-light
+ * 
+ * Estructura:
+ * 1. Variables del tema
+ * 2. Headers y Tablas
+ * 3. Cards y Containers
+ * 4. Componentes específicos
+ */
+
+/* ===== 1. VARIABLES DEL TEMA AZUL ===== */
+body.theme-light {
+  /* Contenedor siempre mantiene el gradiente oscuro */
+  --theme-container-bg: linear-gradient(135deg, rgba(26, 26, 26, 0.8), rgba(15, 15, 15, 0.9));
+  
+  /* Fondos de elementos (tema claro/azul) */
+  --theme-card-bg: var(--bg-panel); /* #16213e */
+  --theme-card-bg-secondary: rgba(0, 212, 255, 0.1);
+  --theme-header-bg: rgba(0, 212, 255, 0.05);
+  --theme-input-bg: rgba(255, 255, 255, 0.8);
+  
+  /* Bordes temáticos */
+  --theme-border-primary: rgba(0, 212, 255, 0.1);
+  --theme-border-secondary: rgba(0, 212, 255, 0.05);
+  --theme-border-hover: rgba(0, 212, 255, 0.2);
+  
+  /* Mantener los mismos colores de texto que tema verde (por defecto de :root) */
+  /* --theme-text-primary: #ffffff */
+  /* --theme-text-secondary: #a0a0b0 */
+  /* --theme-text-muted: #707080 */
+  
+  /* Sombras temáticas */
+  --theme-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* ===== 2. HEADERS Y TABLAS ===== */
+
+/* Headers de tablas en tema azul */
+body.theme-light .positions-table-header th,
+body.theme-light .positions-abiertas-header th {
+  color: var(--color-primary);
+  background: rgba(0, 212, 255, 0.05);
+}
+
+/* ===== 3. CARDS Y CONTAINERS ===== */
+
+/* Posiciones Abiertas - Card general */
+body.theme-light .posiciones-abiertas-card {
+  background: var(--theme-card-bg);
+  border-color: var(--theme-border-primary);
+}
+
+/* Posiciones Abiertas - Card Header */
+body.theme-light .posiciones-abiertas-card .card-header {
+  background: var(--theme-header-bg);
+  border-color: var(--theme-border-primary);
+}
+
+/* Stat Cards en tema azul */
+body.theme-light .stat-card {
+  background: var(--bg-panel) !important;
+  border-color: var(--theme-border-primary) !important;
+}

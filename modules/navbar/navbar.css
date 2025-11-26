@@ -1,0 +1,312 @@
+/**
+ * navbar.css
+ * Estilos para el módulo navbar
+ */
+
+/* Regla específica para nav element */
+nav#navbar {
+  background: #0f0f1e !important;
+}
+
+.navbar-container {
+  background: #0f0f1e !important;
+  border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+  padding: var(--spacing-md);
+  position: sticky;
+  top: 0;
+  z-index: var(--z-index-dropdown);
+  box-shadow: var(--shadow-md);
+  overflow: visible;
+}
+
+.navbar-content {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  max-width: 1400px;
+  margin: 0 auto;
+  overflow: visible;
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  cursor: pointer;
+  transition: opacity var(--transition-fast);
+  text-decoration: none;
+  color: inherit;
+}
+
+.navbar-logo:hover {
+  opacity: 0.8;
+}
+
+.navbar-logo:active {
+  transform: scale(0.98);
+}
+
+.logo-img {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--border-radius-md);
+}
+
+.logo-text {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.navbar-tabs {
+  display: flex;
+  gap: var(--spacing-sm);
+  flex: 1;
+  flex-wrap: wrap;
+}
+
+.navbar-tab {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  border-radius: var(--border-radius-md);
+  transition: all var(--transition-normal);
+  font-size: var(--font-size-sm);
+  white-space: nowrap;
+}
+
+.navbar-tab:hover {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+  background: rgba(0, 212, 255, 0.05);
+}
+
+.navbar-tab.active {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+  background: rgba(0, 212, 255, 0.1);
+}
+
+.navbar-tab i {
+  font-size: var(--font-size-base);
+}
+
+.tab-name {
+  font-weight: 500;
+}
+
+.navbar-controls {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-left: auto;
+  overflow: visible;
+  align-items: center;
+}
+
+/* Selector de Tema Visual */
+.theme-selector-wrapper {
+  display: flex;
+  align-items: center;
+  height: 40px;
+}
+
+.theme-selector {
+  padding: 0.5rem 0.75rem;
+  background: rgba(0, 212, 255, 0.1);
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  color: var(--color-primary);
+  cursor: pointer;
+  border-radius: var(--border-radius-md);
+  transition: all var(--transition-fast);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  height: 100%;
+}
+
+.theme-selector:hover {
+  background: rgba(0, 212, 255, 0.2);
+  border-color: var(--color-primary);
+}
+
+.theme-selector:focus {
+  outline: none;
+  box-shadow: 0 0 8px rgba(0, 212, 255, 0.3);
+}
+
+.theme-selector option {
+  background: transparent;
+  color: inherit;
+  border: none;
+  padding: 8px;
+}
+
+.theme-selector option:hover {
+  background: rgba(0, 212, 255, 0.15);
+}
+
+/* Control Button (tema toggle, links, etc) */
+.control-btn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 212, 255, 0.1);
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  color: var(--color-primary);
+  cursor: pointer;
+  border-radius: var(--border-radius-md);
+  transition: all var(--transition-fast);
+  font-size: var(--font-size-base);
+}
+
+.control-btn:hover {
+  background: rgba(0, 212, 255, 0.2);
+  border-color: var(--color-primary);
+}
+
+.control-btn:active {
+  transform: scale(0.95);
+}
+
+/* Dropdown de Enlaces */
+.navbar-dropdown {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  display: block !important;
+  background: #0f0f1e !important;
+  border: 2px solid rgba(0, 212, 255, 0.8) !important;
+  border-radius: var(--border-radius-md);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.9);
+  min-width: 300px;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 99999;
+  visibility: hidden;
+}
+
+.dropdown-menu.active {
+  max-height: 500px;
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
+}
+
+.dropdown-menu a {
+  display: flex !important;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-lg) !important;
+  color: var(--text-primary) !important;
+  text-decoration: none !important;
+  border-bottom: 1px solid rgba(0, 212, 255, 0.15);
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+  font-weight: 500;
+  background: transparent !important;
+}
+
+.dropdown-menu a:last-child {
+  border-bottom: none;
+}
+
+.dropdown-menu a:hover {
+  background: rgba(0, 212, 255, 0.2) !important;
+  padding-left: calc(var(--spacing-lg) + 6px) !important;
+  color: rgba(0, 212, 255, 1) !important;
+  border-left: 3px solid rgba(0, 212, 255, 1);
+}
+
+.dropdown-menu a i {
+  font-size: var(--font-size-lg);
+  width: 24px;
+  text-align: center;
+  flex-shrink: 0;
+  color: rgba(0, 212, 255, 0.8) !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .navbar-content {
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+  }
+
+  .navbar-tabs {
+    flex: 1 0 100%;
+    gap: 4px;
+  }
+
+  .navbar-tab {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--font-size-xs);
+  }
+
+  .tab-name {
+    display: none;
+  }
+
+  .navbar-tab.active .tab-name {
+    display: inline;
+  }
+
+  .theme-selector {
+    font-size: var(--font-size-xs);
+    padding: 0.4rem 0.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar-container {
+    padding: var(--spacing-sm);
+  }
+
+  .navbar-content {
+    gap: var(--spacing-sm);
+  }
+
+  .logo-text {
+    display: none;
+  }
+
+  .navbar-tabs {
+    gap: 2px;
+  }
+
+  .navbar-tab {
+    padding: var(--spacing-xs) 6px;
+    min-width: 0;
+  }
+
+  .navbar-tab i {
+    font-size: var(--font-size-sm);
+  }
+
+  .theme-selector-wrapper {
+    display: flex;
+    align-items: center;
+    height: 36px;
+  }
+
+  .period-selector {
+    font-size: var(--font-size-xs);
+    padding: 0.3rem 0.5rem;
+    height: 100%;
+  }
+}

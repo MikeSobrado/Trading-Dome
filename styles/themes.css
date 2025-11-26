@@ -1,0 +1,73 @@
+/**
+ * themes.css
+ * Define los temas visuales base (colores de elementos, bordes, etc)
+ * 
+ * Estructura:
+ * - Variables de tema oscuro (por defecto en :root de variables.css)
+ * - Colores de P&L (válidos en TODOS los temas)
+ * 
+ * Nota: Las reglas específicas del tema azul están en theme-azure.css
+ */
+
+/* TEMA OSCURO - Por defecto */
+/* (Definido en :root de variables.css) */
+
+/* ===== COLORES P&L (Ganancia/Pérdida) ===== */
+/* Válidos en TODOS los temas y modos */
+
+/* Positivo (ganancia) - Verde */
+.positive,
+.stat-value.positive,
+.monitoreo-card.positive {
+  color: #00d14a !important;
+  font-weight: 600;
+}
+
+/* Negativo (pérdida) - Rojo */
+.negative,
+.stat-value.negative,
+.monitoreo-card.negative {
+  color: #ff6b6b !important;
+  font-weight: 600;
+}
+
+/* P&L en tablas específicamente */
+.positions-table .positive,
+.positions-table tbody .positive,
+.positions-table td.positive {
+  color: #00d14a !important;
+  font-weight: 600;
+}
+
+.positions-table .negative,
+.positions-table tbody .negative,
+.positions-table td.negative {
+  color: #ff6b6b !important;
+  font-weight: 600;
+}
+
+.positions-abiertas-table .positive,
+.positions-abiertas-table tbody .positive,
+.positions-abiertas-table td.positive {
+  color: #00d14a !important;
+  font-weight: 600;
+}
+
+.positions-abiertas-table .negative,
+.positions-abiertas-table tbody .negative,
+.positions-abiertas-table td.negative {
+  color: #ff6b6b !important;
+  font-weight: 600;
+}
+
+/* Detalle items en posiciones abiertas */
+.detalle-item value.positive {
+  color: #00d14a !important;
+}
+
+.detalle-item value.negative {
+  color: #ff6b6b !important;
+}
+
+
+

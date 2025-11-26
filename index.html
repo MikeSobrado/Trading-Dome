@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Trading Dome Dashboard</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon/logo.png">
+    <link rel="icon" type="image/x-icon" href="favicon/favicon.ico">
+    <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg">
+    
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="favicon/site.webmanifest">
+    <meta name="theme-color" content="#0f0c29">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Trading Dome">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    
+    <!-- CSS Variables y estilos base -->
+    <link rel="stylesheet" href="styles/variables.css">
+    <link rel="stylesheet" href="styles/themes.css">
+    <link rel="stylesheet" href="styles/theme-emerald.css">
+    <link rel="stylesheet" href="styles/theme-azure.css">
+    <link rel="stylesheet" href="styles/theme-desert.css">
+    <link rel="stylesheet" href="styles/light-mode.css">
+    <link rel="stylesheet" href="styles/main.css">
+    
+    <!-- Módulos CSS -->
+    <link rel="stylesheet" href="modules/navbar/navbar.css">
+    <link rel="stylesheet" href="modules/analisis/analisis.css">
+    <link rel="stylesheet" href="modules/riesgo/riesgo.css">
+    <link rel="stylesheet" href="modules/apis/apis.css">
+    <link rel="stylesheet" href="assets/css/posiciones.css">
+    <link rel="stylesheet" href="assets/css/posiciones-abiertas.css">
+    <link rel="stylesheet" href="assets/css/monitoreo.css">
+    <link rel="stylesheet" href="modules/common/profile-widget.css">
+    
+    <!-- Componentes CSS -->
+    <link rel="stylesheet" href="components/indicators/indicators.css">
+    
+    <!-- Chart.js para gráficas -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+    
+    <!-- jsPDF para generar PDFs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
+    <!-- Bootstrap (para clase .text-muted y utilidades) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar (se insertará aquí) -->
+    <nav id="navbar"></nav>
+    
+    <!-- Contenedor principal -->
+    <div id="app" class="app-container">
+        <main id="main-content" class="main-content">
+            <!-- Las pestañas se renderizarán aquí -->
+        </main>
+    </div>
+
+    <!-- Scripts en orden correcto -->
+    <!-- 1. Módulos comunes y utilidades -->
+    <script src="modules/common/error-handler.js"></script>
+    <script src="modules/common/event-bus.js"></script>
+    <script src="modules/common/theme-manager.js"></script>
+    <script src="modules/common/validators.js"></script>
+    <script src="modules/common/stats-calculator.js"></script>
+    <script src="modules/common/positions-cache.js"></script>
+    <script src="modules/common/risk-calculator.js"></script>
+    <script src="modules/common/field-mapper.js"></script>
+    <script src="modules/common/crypto-manager.js"></script>
+    <script src="lib/utils.js"></script>
+    
+    <!-- 2. Configuración y estado -->
+    <script src="modules/config/config.js"></script>
+    <script src="modules/state/state-manager.js"></script>
+    <script src="modules/common/central-logger.js"></script>
+    <script src="modules/common/profile-data-validator.js"></script>
+    <script src="modules/common/profile-manager.js"></script>
+    <script src="modules/common/profile-data-service.js"></script>
+    <script src="modules/common/profile-auto-save.js"></script>
+    <script src="modules/common/profile-snapshot.js"></script>
+    <script src="modules/common/change-history.js"></script>
+    <script src="modules/common/profile-widget.js"></script>
+    <script src="modules/common/profile-export-import.js"></script>
+    
+    <!-- 3. Componentes (cargados antes de los módulos que los usan) -->
+    <script src="components/indicators/IndicatorsManager.js"></script>
+    
+    <!-- 4. Módulos de APIs -->
+    <script src="modules/apis/api-config-manager.js"></script>
+    <script src="modules/apis/bitget-connector.js"></script>
+    <script src="modules/apis/apis.js"></script>
+    
+    <!-- 5. Módulos específicos -->
+    <script src="modules/navbar/navbar.js"></script>
+    <script src="modules/analisis/analisis.js"></script>
+    <script src="modules/riesgo/riesgo.js"></script>
+    <script src="modules/posiciones/posiciones.js"></script>
+    <script src="modules/posiciones-abiertas/posiciones-abiertas-details.js"></script>
+    <script src="modules/posiciones-abiertas/posiciones-abiertas.js"></script>
+    <script src="modules/monitoreo/monitoreo.js"></script>
+    
+    <!-- 6. App principal -->
+    <script src="app.js"></script>
+</body>
+</html>
+
+
+

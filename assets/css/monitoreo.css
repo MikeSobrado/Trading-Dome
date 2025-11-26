@@ -1,0 +1,359 @@
+/**
+ * @file monitoreo.css
+ * @description Estilos para el módulo de Monitoreo
+ */
+
+.monitoreo-container {
+  padding: 2rem;
+  background: var(--theme-container-bg);
+  border-radius: 12px;
+  margin-bottom: 2rem;
+}
+
+.monitoreo-header {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid var(--color-primary);
+}
+
+.monitoreo-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.monitoreo-header h2 {
+  color: var(--color-primary);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-size: 1.75rem;
+}
+
+.monitoreo-header p {
+  color: #888;
+  font-size: 0.95rem;
+}
+
+.monitoreo-header .monitoreo-subtitle {
+  color: var(--color-primary);
+  font-size: 0.95rem;
+}
+
+/* Period Selector */
+.period-selector-wrapper {
+  display: flex;
+  align-items: center;
+  height: 40px;
+}
+
+.period-selector {
+  padding: 0.5rem 0.75rem;
+  background: rgba(0, 212, 255, 0.1);
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  color: var(--color-primary);
+  cursor: pointer;
+  border-radius: var(--border-radius-md);
+  transition: all var(--transition-fast);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  height: 100%;
+}
+
+.period-selector:hover {
+  background: rgba(0, 212, 255, 0.2);
+  border-color: var(--color-primary);
+}
+
+.period-selector:focus {
+  outline: none;
+  box-shadow: 0 0 8px rgba(0, 212, 255, 0.3);
+}
+
+.period-selector option {
+  background: #0f0f1e;
+  color: var(--color-primary);
+  border: none;
+  padding: 8px;
+}
+
+/* Grid de gráficas */
+.monitoreo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+@media (max-width: 1024px) {
+  .monitoreo-grid {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .monitoreo-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .monitoreo-container {
+    padding: 1rem;
+  }
+}
+
+/* Tarjetas de gráficas */
+.monitoreo-card {
+  background: var(--theme-card-bg);
+  border: 1px solid var(--theme-border-primary);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--theme-shadow);
+  transition: all 0.3s ease;
+}
+
+.monitoreo-card:hover {
+  border-color: var(--theme-border-hover);
+  box-shadow: 0 12px 40px rgba(0, 212, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.monitoreo-card .card-header {
+  background: var(--theme-header-bg);
+  border-bottom: 1px solid var(--theme-border-secondary);
+  padding: 1.25rem;
+}
+
+.monitoreo-card .card-header h5 {
+  color: var(--color-primary);
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.monitoreo-card .card-body {
+  padding: 1.5rem;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* Canvas responsive */
+.monitoreo-card canvas {
+  max-height: 280px;
+  width: 100% !important;
+}
+
+/* Centro de gráficas Doughnut */
+.chart-center-text {
+  position: absolute;
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--color-primary);
+  text-align: center;
+}
+
+/* Grid de estadísticas */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Columnas de estadísticas */
+.stats-columns {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.stats-column {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 1200px) {
+  .stats-columns {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .stats-columns {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .stats-column {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .stats-columns {
+    grid-template-columns: 1fr;
+  }
+  
+  .stats-column {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Tarjetas de estadísticas */
+.stat-card {
+  background: rgba(0, 212, 255, 0.05);
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  background: rgba(0, 212, 255, 0.1);
+  border-color: rgba(0, 212, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: #888;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--color-primary);
+}
+
+.stat-value.text-success {
+  color: #00d14a;
+}
+
+.stat-value.text-danger {
+  color: #ff6b6b;
+}
+
+.stat-value.text-info {
+  color: var(--color-primary);
+}
+
+/* Animaciones de carga */
+@keyframes chartPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.monitoreo-card.loading .card-body {
+  animation: chartPulse 1.5s ease-in-out infinite;
+}
+
+/* Responsive para gráficas en móvil */
+@media (max-width: 600px) {
+  .monitoreo-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .monitoreo-card .card-body {
+    min-height: 250px;
+  }
+  
+  .monitoreo-header h2 {
+    font-size: 1.4rem;
+  }
+}
+
+/* Temas alternativos */
+.monitoreo-card.positive {
+  border-color: rgba(0, 212, 74, 0.3);
+}
+
+.monitoreo-card.negative {
+  border-color: rgba(255, 107, 107, 0.3);
+}
+
+/* Tooltips y estilos adicionales */
+.monitoreo-card canvas {
+  cursor: crosshair;
+}
+
+/* Estilos de texto en gráficas */
+.chart-text {
+  font-size: 0.9rem;
+  color: #a0a0a0;
+}
+
+.chart-value {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: var(--color-primary);
+}
+
+/* Media queries para móvil */
+@media (max-width: 768px) {
+  .monitoreo-header-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .period-selector-wrapper {
+    width: 100%;
+  }
+
+  .period-selector {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .monitoreo-header-top {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .period-selector {
+    font-size: var(--font-size-xs);
+    padding: 0.4rem 0.6rem;
+  }
+
+  .monitoreo-container {
+    padding: 1rem;
+  }
+
+  .monitoreo-header {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+  }
+}
+
+/* Responsividad para header */
+@media (max-width: 768px) {
+  .monitoreo-header-top {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .period-selector-wrapper {
+    width: 100%;
+  }
+
+  .period-selector {
+    width: 100%;
+  }
+}

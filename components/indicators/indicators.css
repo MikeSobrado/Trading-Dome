@@ -1,0 +1,259 @@
+/**
+ * indicators.css
+ * Estilos para el componente IndicatorsManager
+ * 
+ * Clases disponibles:
+ * - .indicator-item: Contenedor de un indicador
+ * - .indicator-header: Encabezado (nombre + botón eliminar)
+ * - .indicator-name: Input de nombre
+ * - .indicator-delete: Botón para eliminar
+ * - .indicator-lights: Contenedor de luces y score
+ * - .indicator-light: Botón de luz
+ * - .light-long: Luz para LONG
+ * - .light-short: Luz para SHORT
+ * - .indicator-score: Input de score
+ */
+
+.indicator-item {
+  background: rgba(0, 212, 255, 0.05);
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-lg);
+  transition: all var(--transition-normal);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.indicator-item:hover {
+  background: rgba(0, 212, 255, 0.1);
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 212, 255, 0.15);
+}
+
+/* Header: Nombre + Botón Eliminar */
+.indicator-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.indicator-name {
+  flex: 1;
+  background: transparent;
+  border: none;
+  border-bottom: 1px dashed rgba(0, 212, 255, 0.3);
+  color: var(--text-primary);
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  padding: var(--spacing-xs);
+  cursor: text;
+  transition: border-color var(--transition-fast);
+}
+
+.indicator-name:focus {
+  outline: none;
+  border-bottom-color: var(--color-primary);
+  background: rgba(0, 212, 255, 0.05);
+}
+
+.indicator-delete {
+  background: transparent;
+  border: none;
+  color: rgba(231, 76, 60, 0.6);
+  font-size: var(--font-size-lg);
+  cursor: pointer;
+  padding: 0;
+  transition: color var(--transition-fast);
+}
+
+.indicator-delete:hover {
+  color: var(--color-danger);
+}
+
+/* Lights + Score Container */
+.indicator-lights {
+  display: flex;
+  gap: var(--spacing-md);
+  justify-content: center;
+  align-items: center;
+}
+
+/* Botones de Luces */
+.indicator-light {
+  flex: 1;
+  height: 50px;
+  border-radius: var(--border-radius-sm);
+  border: 2px solid currentColor;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  transition: all var(--transition-normal);
+  position: relative;
+}
+
+.light-long {
+  color: rgba(46, 204, 113, 0.4);
+}
+
+.light-long:hover {
+  color: var(--color-success);
+  border-color: var(--color-success);
+  transform: scale(1.05);
+}
+
+.light-long.active {
+  color: var(--color-success);
+  background: rgba(46, 204, 113, 0.4);
+  border-color: var(--color-success);
+  font-weight: bold;
+  box-shadow: 
+    0 0 8px rgba(46, 204, 113, 0.6),
+    0 0 16px rgba(46, 204, 113, 0.5),
+    0 0 24px rgba(46, 204, 113, 0.4),
+    inset 0 0 12px rgba(46, 204, 113, 0.3),
+    inset 0 0 8px rgba(46, 204, 113, 0.2);
+  animation: pulse-green 2s ease-in-out infinite;
+  transform: scale(1.02);
+}
+
+.light-short {
+  color: rgba(231, 76, 60, 0.4);
+}
+
+.light-short:hover {
+  color: var(--color-danger);
+  border-color: var(--color-danger);
+  transform: scale(1.05);
+}
+
+.light-short.active {
+  color: var(--color-danger);
+  background: rgba(231, 76, 60, 0.4);
+  border-color: var(--color-danger);
+  font-weight: bold;
+  box-shadow: 
+    0 0 8px rgba(231, 76, 60, 0.6),
+    0 0 16px rgba(231, 76, 60, 0.5),
+    0 0 24px rgba(231, 76, 60, 0.4),
+    inset 0 0 12px rgba(231, 76, 60, 0.3),
+    inset 0 0 8px rgba(231, 76, 60, 0.2);
+  animation: pulse-red 2s ease-in-out infinite;
+  transform: scale(1.02);
+}
+
+/* Animaciones de pulso */
+@keyframes pulse-green {
+  0%, 100% {
+    box-shadow: 
+      0 0 8px rgba(46, 204, 113, 0.6),
+      0 0 16px rgba(46, 204, 113, 0.5),
+      0 0 24px rgba(46, 204, 113, 0.4),
+      inset 0 0 12px rgba(46, 204, 113, 0.3),
+      inset 0 0 8px rgba(46, 204, 113, 0.2);
+  }
+  50% {
+    box-shadow: 
+      0 0 12px rgba(46, 204, 113, 0.8),
+      0 0 24px rgba(46, 204, 113, 0.7),
+      0 0 36px rgba(46, 204, 113, 0.6),
+      inset 0 0 16px rgba(46, 204, 113, 0.4),
+      inset 0 0 12px rgba(46, 204, 113, 0.3);
+  }
+}
+
+@keyframes pulse-red {
+  0%, 100% {
+    box-shadow: 
+      0 0 8px rgba(231, 76, 60, 0.6),
+      0 0 16px rgba(231, 76, 60, 0.5),
+      0 0 24px rgba(231, 76, 60, 0.4),
+      inset 0 0 12px rgba(231, 76, 60, 0.3),
+      inset 0 0 8px rgba(231, 76, 60, 0.2);
+  }
+  50% {
+    box-shadow: 
+      0 0 12px rgba(231, 76, 60, 0.8),
+      0 0 24px rgba(231, 76, 60, 0.7),
+      0 0 36px rgba(231, 76, 60, 0.6),
+      inset 0 0 16px rgba(231, 76, 60, 0.4),
+      inset 0 0 12px rgba(231, 76, 60, 0.3);
+  }
+}
+
+/* Input de Score */
+.indicator-score {
+  width: 50px;
+  height: 50px;
+  padding: 0;
+  text-align: center;
+  background: rgba(0, 212, 255, 0.1);
+  border: 2px solid rgba(0, 212, 255, 0.3);
+  border-radius: var(--border-radius-sm);
+  color: var(--text-primary);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  cursor: text;
+  transition: all var(--transition-fast);
+}
+
+.indicator-score:focus {
+  outline: none;
+  background: rgba(0, 212, 255, 0.2);
+  border-color: var(--color-primary);
+}
+
+/* Eliminar flechas del input number */
+.indicator-score::-webkit-outer-spin-button,
+.indicator-score::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.indicator-score[type=number] {
+  -moz-appearance: textfield;
+}
+
+/* Iconos en los botones de luces */
+.indicator-light i {
+  font-size: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Grid responsivo */
+@media (max-width: 1024px) {
+  .indicator-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .indicator-list {
+    grid-template-columns: 1fr;
+  }
+
+  .indicator-item {
+    padding: var(--spacing-md);
+  }
+
+  .indicator-lights {
+    flex-wrap: wrap;
+  }
+
+  .indicator-light,
+  .indicator-score {
+    height: 40px;
+    font-size: 18px;
+  }
+
+  .indicator-score {
+    width: 40px;
+  }
+}

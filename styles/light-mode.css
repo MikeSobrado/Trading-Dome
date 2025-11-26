@@ -1,0 +1,15 @@
+/**
+ * light-mode.css
+ * Controla SOLO el background de la página cuando el botón sol/luna está en "luz"
+ * 
+ * IMPORTANTE: Este archivo NO debe cambiar colores de texto.
+ * Los colores de texto son controlados SOLO por themes.css (tema-dark/tema-light)
+ */
+
+body.light-mode {
+  background-color: var(--mode-page-bg) !important;
+}
+
+body.light-mode .main-content {
+  background-color: var(--mode-content-bg) !important;
+}
