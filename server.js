@@ -220,6 +220,7 @@ app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
   console.log(`📁 Serving files from: ${__dirname}`);
   console.log(`🔗 Proxy de Bitget disponible en /api/bitget`);
+  console.log(`✅ CORS habilitado para: Netlify, GitHub Pages, Render`);
   if (process.env.NODE_ENV !== 'production') {
     console.log(`🌐 Visit http://localhost:${PORT}`);
   }
