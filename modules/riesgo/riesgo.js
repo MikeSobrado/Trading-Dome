@@ -163,6 +163,22 @@ class RiesgoModule {
     this.container.style.display = 'block';
     this.container.classList.add('active');
     
+    // Re-suscribirse a cambios del servicio de datos (por si se limpió en destroy())
+    if (!this.profileDataUnsubscriber || typeof this.profileDataUnsubscriber !== 'function') {
+      this.profileDataUnsubscriber = profileDataService?.on('loaded', (data) => {
+        console.log('[Riesgo] 📥 Datos del perfil cargados desde servicio');
+        if (data.risk && Object.keys(data.risk).length > 0) {
+          const deepCopyRisk = JSON.parse(JSON.stringify(data.risk));
+          this.riskState = { ...DEFAULT_RISK_STATE, ...deepCopyRisk };
+        } else {
+          this.riskState = { ...DEFAULT_RISK_STATE };
+        }
+        
+        this.updateInputsFromState();
+        this.updateCalculations();
+      });
+    }
+    
     // Solo renderizar la primera vez
     if (!this.rendered) {
       console.log('[Riesgo] ✓ Renderizando por primera vez...');
