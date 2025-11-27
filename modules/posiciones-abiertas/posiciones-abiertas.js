@@ -390,6 +390,11 @@ class PosicionesAbiertasModule {
       
       this.updateStats();
 
+      // Enriquecer con datos de margen de forma asíncrona
+      this.enrichPositionsWithMarginData().catch(err => {
+        console.warn('[PosicionesAbiertas] ⚠️ Error enriqueciendo margen:', err.message);
+      });
+
       // Iniciar auto-actualización SOLO si hay datos y no está ya iniciado
       if (!this.autoUpdateStarted) {
         console.log('[PosicionesAbiertas] 🚀 Iniciando auto-actualización por primera vez');
@@ -496,11 +501,11 @@ class PosicionesAbiertasModule {
           <tr class="posicion-abierta-row" data-index="${index}" data-symbol="${symbol}">
             <td class="cell-symbol"><strong>${symbol}</strong></td>
             <td class="cell-side">${side}</td>
-            <td class="cell-open-price"><small>$${openPrice}</small></td>
-            <td class="cell-break-even"><small>$${breakEvenPrice}</small></td>
-            <td class="cell-market-price"><small>$${marketPrice}</small></td>
-            <td class="cell-liquidation"><small>$${liquidationPrice}</small></td>
-            <td class="cell-quantity"><small>${quantity}</small></td>
+            <td class="cell-open-price"><strong>$${openPrice}</strong></td>
+            <td class="cell-break-even"><strong>$${breakEvenPrice}</strong></td>
+            <td class="cell-market-price"><strong>$${marketPrice}</strong></td>
+            <td class="cell-liquidation"><strong>$${liquidationPrice}</strong></td>
+            <td class="cell-quantity"><strong>${quantity}</strong></td>
             <td class="cell-pnl ${pnlClass}"><strong>$${unrealizedPnl}</strong></td>
             <td class="cell-leverage"><strong>${leverage}x</strong></td>
             <td>
@@ -645,7 +650,9 @@ class PosicionesAbiertasModule {
 
     this.openPositions.forEach(pos => {
       pnlTotal += parseFloat(pos.unrealizedPL || 0);
-      marginTotal += parseFloat(pos.margin || 0);
+      // Usar marginSize si está disponible (del single-position endpoint)
+      const margin = parseFloat(pos.marginSize || pos.margin || 0);
+      marginTotal += margin;
     });
 
     const totalEquity = marginTotal + pnlTotal; // Aproximación
@@ -663,6 +670,46 @@ class PosicionesAbiertasModule {
     }
     if (margenUsadoEl) margenUsadoEl.textContent = `$${marginTotal.toFixed(2)}`;
     if (marginRatioEl) marginRatioEl.textContent = `${marginRatio.toFixed(2)}%`;
+  }
+
+  /**
+   * Enriquece posiciones con datos de margen desde single-position
+   */
+  async enrichPositionsWithMarginData() {
+    if (!this.openPositions || this.openPositions.length === 0 || !this.bitgetConnector) {
+      console.log('[PosicionesAbiertas] ⚠️ No hay posiciones o bitgetConnector no disponible');
+      return;
+    }
+
+    const config = this.apiConfigManager?.getConfig('bitget');
+    if (!config) {
+      console.log('[PosicionesAbiertas] ⚠️ Bitget no configurado');
+      return;
+    }
+
+    console.log('[PosicionesAbiertas] 📊 Enriqueciendo posiciones con datos de margen...');
+
+    // Para cada posición, obtener marginSize del endpoint single-position
+    for (const pos of this.openPositions) {
+      try {
+        const singlePosData = await this.bitgetConnector.getSinglePosition(
+          pos.symbol,
+          'USDT-FUTURES',
+          'USDT'
+        );
+
+        if (singlePosData && singlePosData.length > 0) {
+          pos.marginSize = parseFloat(singlePosData[0].marginSize || 0);
+          pos.marginRatio = parseFloat(singlePosData[0].marginRatio || 0);
+          console.log(`[PosicionesAbiertas] ✓ ${pos.symbol}: marginSize=$${pos.marginSize.toFixed(2)}`);
+        }
+      } catch (err) {
+        console.warn(`[PosicionesAbiertas] ⚠️ Error en ${pos.symbol}:`, err.message);
+      }
+    }
+
+    // Actualizar estadísticas después de enriquecer
+    this.updateStats();
   }
 
   /**

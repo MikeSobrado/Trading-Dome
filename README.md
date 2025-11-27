@@ -391,11 +391,7 @@ Trading-Dome/
 │
 ├── 📝 DOCUMENTACIÓN
 │   ├── README.md                     # Este archivo
-│   ├── ARCHITECTURE-PROXY.md         # Arquitectura del proxy
-│   ├── DEPLOY-GITHUB-RENDER-PASO-A-PASO.md
-│   ├── CREDENCIALES-EXPORT-IMPORT.md
-│   ├── PROFILE-EXPORT-IMPORT-GUIDE.md
-│   └── BITGET-API-INFO-NECESARIA.md
+│   └── Instrucciones.pdf             # Guia del usuario
 │
 ├── 🔧 GIT & DEPLOY
 │   ├── .git/                         # Control de versión

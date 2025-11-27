@@ -259,7 +259,7 @@ class AnalisisModule {
           <div class="card-header">
             <h5 class="mb-0">
               <i class="bi bi-person-lines-fill me-2"></i>
-              Perfiles de Usuario
+              Perfiles de Trading
             </h5>
           </div>
           <div class="card-body" id="profiles-widget-analisis">
@@ -273,7 +273,7 @@ class AnalisisModule {
           <div class="card-header">
             <h5 class="mb-0">
               <i class="bi bi-lightning-charge me-2"></i>
-              Panel de Decisión Trading
+              Panel de Decisión
             </h5>
           </div>
           <div class="card-body">
@@ -323,7 +323,7 @@ class AnalisisModule {
           <div class="card-header">
             <h5 class="mb-0">
               <i class="bi bi-graph-up me-2"></i>
-              Indicadores de Trading
+              Indicadores
             </h5>
           </div>
           <div class="card-body">

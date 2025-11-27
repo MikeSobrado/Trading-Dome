@@ -367,7 +367,7 @@ class RiesgoModule {
               <div class="user-panel">
                 <div class="user-panel-content">
                   <h6 class="section-title">
-                    <i class="bi bi-person-circle me-2"></i>Panel de Usuario
+                    <i class="bi bi-person-circle me-2"></i>Perfil de trading
                   </h6>
                   <div id="riesgo-profile-selector" class="profile-selector-container"></div>
                 </div>
@@ -380,7 +380,7 @@ class RiesgoModule {
                 </h6>
 
                 <div class="results-section">
-                  <h6 class="subsection-title">📊 Margen y Riesgo</h6>
+                  <h6 class="subsection-title">📊 Márgenes Resultantes</h6>
                   
                   <div class="result-row">
                     <span class="result-label">Margen</span>

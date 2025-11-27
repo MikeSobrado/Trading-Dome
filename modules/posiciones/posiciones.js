@@ -460,9 +460,9 @@ class PosicionesModule {
             <td><small>${date}</small></td>
             <td><strong>${symbol}</strong></td>
             <td>${side}</td>
-            <td><small>${entryPrice}</small></td>
-            <td><small>${exitPrice}</small></td>
-            <td><small>${quantity}</small></td>
+            <td><strong>${entryPrice}</strong></td>
+            <td><strong>${exitPrice}</strong></td>
+            <td><strong>${quantity}</strong></td>
             <td class="${pnlClass}"><strong>${pnl}</strong></td>
             <td class="${pnlClass}"><strong>${pnlPercent}%</strong></td>
           </tr>

@@ -32,10 +32,16 @@ class PosicionesAbiertasDetails {
     // Datos del cache (siempre disponibles)
     const unrealizedPnl = parseFloat(cachedPos.unrealizedPL || 0).toFixed(2);
     const unrealizedPnlPercent = (parseFloat(cachedPos.unrealizedPLRatio || 0) * 100).toFixed(2);
-    const margin = parseFloat(cachedPos.margin || 0).toFixed(2);
-    const marginRate = parseFloat(cachedPos.marginRate || 0) * 100;
     const liquidationPrice = parseFloat(cachedPos.liquidationPrice || 0).toFixed(4);
-    const openTime = new Date(parseInt(cachedPos.openTime || 0)).toLocaleString('es-ES');
+    
+    // Parsear openTime correctamente - Bitget lo devuelve como cTime (string en milisegundos)
+    let openTime = 'N/A';
+    if (cachedPos.cTime) {
+      const timestamp = parseInt(cachedPos.cTime);
+      if (!isNaN(timestamp) && timestamp > 0) {
+        openTime = new Date(timestamp).toLocaleString('es-ES');
+      }
+    }
 
     const pnlClass = parseFloat(unrealizedPnl) >= 0 ? 'positive' : 'negative';
 
@@ -78,8 +84,6 @@ class PosicionesAbiertasDetails {
       loadingError,
       unrealizedPnl,
       unrealizedPnlPercent,
-      margin,
-      marginRate,
       liquidationPrice,
       openTime,
       pnlClass
@@ -89,7 +93,7 @@ class PosicionesAbiertasDetails {
   /**
    * Renderiza el modal con la estructura definitiva
    */
-  renderModal(symbol, side, cachedPos, singlePosData, loadingError, unrealizedPnl, unrealizedPnlPercent, margin, marginRate, liquidationPrice, openTime, pnlClass) {
+  renderModal(symbol, side, cachedPos, singlePosData, loadingError, unrealizedPnl, unrealizedPnlPercent, liquidationPrice, openTime, pnlClass) {
     // Extraer datos del single-position si están disponibles
     const marginSize = singlePosData ? parseFloat(singlePosData.marginSize || 0).toFixed(2) : null;
     const marginRatio = singlePosData ? (parseFloat(singlePosData.marginRatio || 0) * 100).toFixed(2) : null;
@@ -133,27 +137,13 @@ class PosicionesAbiertasDetails {
             
             <div class="detalle-item">
               <label>Margen Usado</label>
-              <value>$${margin}</value>
+              <value>${marginSize !== null ? `$${marginSize}` : '-'}</value>
             </div>
-
-            ${marginSize !== null ? `
-            <div class="detalle-item">
-              <label>Capital Expuesto</label>
-              <value>$${marginSize}</value>
-            </div>
-            ` : ''}
             
             <div class="detalle-item">
               <label>Ratio Margen</label>
-              <value>${marginRate.toFixed(2)}%</value>
+              <value>${marginRatio !== null ? `${marginRatio}%` : '-'}</value>
             </div>
-
-            ${marginRatio !== null ? `
-            <div class="detalle-item">
-              <label>Ratio Mantenimiento</label>
-              <value>${marginRatio}%</value>
-            </div>
-            ` : ''}
 
             <!-- COMISIONES & COSTOS -->
             ${(totalFee !== null || deductedFee !== null) ? `
