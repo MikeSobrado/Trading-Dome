@@ -77,7 +77,7 @@ class NavbarModule {
   render() {
     this.container.innerHTML = `
       <div class="navbar-content">
-        <a href="https://mikesobrado.github.io/Trading-Dome/" class="navbar-logo" title="Ir a Trading Dome">
+        <a href="https://trading-dome.netlify.app/" class="navbar-logo" title="Ir a Trading Dome">
           <img src="favicon/logo.png" alt="Trading Dome" class="logo-img">
           <span class="logo-text">Trading Dome</span>
         </a>
