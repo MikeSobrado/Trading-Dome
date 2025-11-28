@@ -241,7 +241,7 @@ class MonitoreoModule {
           <div class="monitoreo-card">
             <div class="card-header">
               <h5 class="mb-0">
-                <i class="bi bi-balance-scale me-2"></i>
+                <i class="bi bi-server"></i>
                 Ratio R/R
               </h5>
             </div>
@@ -254,7 +254,7 @@ class MonitoreoModule {
           <div class="monitoreo-card">
             <div class="card-header">
               <h5 class="mb-0">
-                <i class="bi bi-bar-chart-line me-2"></i>
+                <i class="bi bi-sliders2"></i>
                 P&L por Posición
               </h5>
             </div>
@@ -267,7 +267,7 @@ class MonitoreoModule {
           <div class="monitoreo-card">
             <div class="card-header">
               <h5 class="mb-0">
-                <i class="bi bi-graph-down me-2"></i>
+                <i class="bi bi-graph-down-arrow"></i>
                 Drawdown Máximo
               </h5>
             </div>
@@ -306,7 +306,7 @@ class MonitoreoModule {
           <div class="monitoreo-card">
             <div class="card-header">
               <h5 class="mb-0">
-                <i class="bi bi-lightning-charge me-2"></i>
+                <i class="bi bi-easel2"></i>
                 Estadísticas Clave
               </h5>
             </div>

@@ -114,29 +114,22 @@ class RiskCalculator {
       const gananciaNeta = ganancia - gastosTotalesDolares;
       const roi = margen > 0 ? (gananciaNeta / margen) * 100 : 0;
 
-      // Resultados BRUTOS (sumando gastos a pérdida y restando a ganancia)
-      const perdidaBruta = perdidaEnDolares + gastosTotalesDolares;
-      const gananciaBruta = ganancia - gastosTotalesDolares;
-
-      // Ratio Ganancia/Pérdida
-      const ratioGananciaPeridida = perdidaEnDolares > 0 ? ganancia / perdidaEnDolares : 0;
+      // Ratio Ganancia/Pérdida (para alarma)
+      const ratioGanancia = perdidaEnDolares > 0 ? ganancia / perdidaEnDolares : 0;
 
       this.results = {
         distanciaRiesgo,
         margen,
         posicionTotal,
         perdidaEnDolares,
-        perdidaBruta,
         ganancia,
-        gananciaBruta,
         costeComisionDolares,
         gastosTotalesDolares,
         porcentajeGananciaMinima,
         breakeven,
         gananciaNeta,
         roi,
-        ratioGananciaPeridida,
-        tieneAlerta: ratioGananciaPeridida < riesgoBeneficio
+        tieneAlerta: ratioGanancia < riesgoBeneficio
       };
 
       return this.results;
@@ -235,7 +228,6 @@ class RiskCalculator {
       breakeven: 0,
       gananciaNeta: 0,
       roi: 0,
-      ratioGananciaPeridida: 0,
       tieneAlerta: false
     };
   }

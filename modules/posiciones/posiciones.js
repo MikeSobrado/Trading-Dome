@@ -163,7 +163,7 @@ class PosicionesModule {
         <div class="posiciones-table-card">
           <div class="card-header">
             <h5 class="mb-0">
-              <i class="bi bi-table me-2"></i>
+              <i class="bi bi-clipboard-data"></i>
               Historial de Posiciones Cerradas
             </h5>
           </div>
@@ -182,6 +182,9 @@ class PosicionesModule {
                 </button>
               </div>
               <div class="export-section">
+                <button id="refresh-positions-btn" class="export-btn" title="Actualizar posiciones">
+                  <i class="bi bi-arrow-clockwise me-1"></i>Actualizar
+                </button>
                 <button id="download-pdf-btn" class="export-btn" title="Descargar historial en PDF">
                   <i class="bi bi-file-pdf me-1"></i>Descargar PDF
                 </button>
@@ -233,6 +236,12 @@ class PosicionesModule {
       const pdfBtn = this.container.querySelector('#download-pdf-btn');
       if (pdfBtn) {
         pdfBtn.addEventListener('click', () => this.downloadPDF());
+      }
+
+      // Botón de actualizar
+      const refreshBtn = this.container.querySelector('#refresh-positions-btn');
+      if (refreshBtn) {
+        refreshBtn.addEventListener('click', () => this.refreshPositionsFromAPI());
       }
 
       this.domListenersAttached = true;
@@ -457,7 +466,7 @@ class PosicionesModule {
 
         html += `
           <tr>
-            <td><small>${date}</small></td>
+            <td><strong>${date}</strong></td>
             <td><strong>${symbol}</strong></td>
             <td>${side}</td>
             <td><strong>${entryPrice}</strong></td>
@@ -860,6 +869,45 @@ class PosicionesModule {
 
     html2pdf().set(options).from(element.innerHTML).save();
     console.log('[Posiciones] ✓ PDF descargado exitosamente (sin imagen)');
+  }
+
+  /**
+   * Recarga las posiciones desde la API y las cachea
+   */
+  async refreshPositionsFromAPI() {
+    try {
+      const wrapper = this.container.querySelector('#positions-table-wrapper');
+      if (wrapper) wrapper.innerHTML = '<p class="text-center"><i class="bi bi-hourglass-split"></i> Actualizando posiciones...</p>';
+
+      if (!this.bitgetConnector) {
+        console.error('[Posiciones] ❌ BitgetConnector no disponible');
+        return;
+      }
+
+      console.log('[Posiciones] 📊 Recargando posiciones cerradas desde la API...');
+      const positions = await this.bitgetConnector.getClosedPositions({ limit: 100 });
+
+      if (positions && positions.length > 0) {
+        // Guardar en sessionStorage
+        sessionStorage.setItem('bitget_closed_positions', JSON.stringify({
+          data: positions,
+          timestamp: Date.now()
+        }));
+
+        console.log(`[Posiciones] ✅ ${positions.length} posiciones cerradas actualizadas`);
+        
+        // Emitir evento
+        eventBus?.emit('bitget:closed-positions:cached', { count: positions.length, data: positions });
+        
+        // Cargar en la UI
+        this.loadPositions();
+      } else {
+        console.log('[Posiciones] ℹ️ No hay posiciones cerradas para actualizar');
+        this.loadPositions();
+      }
+    } catch (error) {
+      console.error('[Posiciones] ❌ Error actualizando posiciones:', error);
+    }
   }
 
   /**

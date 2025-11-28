@@ -210,7 +210,7 @@ class PosicionesAbiertasModule {
           <div class="posiciones-abiertas-card">
             <div class="card-header">
               <h5 class="mb-0">
-                <i class="bi bi-lightning me-2"></i>
+                <i class="bi bi-clipboard-pulse"></i>
                 Posiciones Abiertas
               </h5>
             </div>

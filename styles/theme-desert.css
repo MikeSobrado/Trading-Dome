@@ -210,7 +210,8 @@ body.theme-desert .table-responsive-scrollable-abiertas tbody tr td:nth-child(1)
 body.theme-desert .table-responsive-scrollable-abiertas tbody tr td:nth-child(3),   /* Entrada */
 body.theme-desert .table-responsive-scrollable-abiertas tbody tr td:nth-child(4),   /* Equilibrio */
 body.theme-desert .table-responsive-scrollable-abiertas tbody tr td:nth-child(5),   /* Actual */
-body.theme-desert .table-responsive-scrollable-abiertas tbody tr td:nth-child(6),   /* Cantidad */
+body.theme-desert .table-responsive-scrollable-abiertas tbody tr td:nth-child(6),   /* Liquidación */
+body.theme-desert .table-responsive-scrollable-abiertas tbody tr td:nth-child(7),   /* Cantidad */
 body.theme-desert .table-responsive-scrollable-abiertas tbody tr td:nth-child(9) {  /* Apalancamiento */
   color: #000000 !important;
 }

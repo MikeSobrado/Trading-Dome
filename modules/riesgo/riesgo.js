@@ -392,7 +392,7 @@ class RiesgoModule {
               <!-- COLUMNA RESULTADOS -->
               <div class="calculator-results">
                 <h6 class="section-title">
-                  <i class="bi bi-graph-up me-2"></i>Resultados Calculados
+                  <i class="bi bi-file-ruled"></i>Resultados Calculados
                 </h6>
 
                 <div class="results-section">
@@ -409,12 +409,12 @@ class RiesgoModule {
                   </div>
 
                   <div class="result-row">
-                    <span class="result-label">Pérdida</span>
+                    <span class="result-label">Pérdida Neta</span>
                     <span class="result-value" id="result-perdida">$0.00</span>
                   </div>
 
                   <div class="result-row">
-                    <span class="result-label">Ganancia</span>
+                    <span class="result-label">Ganancia Neta</span>
                     <span class="result-value" id="result-ganancia">$0.00</span>
                   </div>
 
@@ -660,12 +660,12 @@ class RiesgoModule {
     const results = this.riskCalculator.calculate();
 
     // Mapear resultados a elementos del DOM
-    // Usar valores BRUTOS (restando gastos totales)
+    // Usar valores NETOS (sin gastos)
     const displayMap = {
       'result-margen': `${results.margen.toFixed(2)}$`,
       'result-distancia': `${results.distanciaRiesgo.toFixed(2)}%`,
-      'result-perdida': `${results.perdidaBruta.toFixed(2)}$`,
-      'result-ganancia': `${results.gananciaBruta.toFixed(2)}$`,
+      'result-perdida': `${results.perdidaEnDolares.toFixed(2)}$`,
+      'result-ganancia': `${results.ganancia.toFixed(2)}$`,
       'result-breakeven': `${results.breakeven.toFixed(2)}$`,
       'result-roi': `${results.roi.toFixed(2)}%`,
       'result-comision': `${results.costeComisionDolares.toFixed(2)}$`,

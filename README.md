@@ -15,6 +15,7 @@
 - Gestión de indicadores técnicos personalizados
 - Sistema de umbral configurable para señales de trading
 - Cálculo de decisiones basado en múltiples indicadores
+- Sistema de ponderación discreta de indicadores
 
 ### 💰 **Gestión de Riesgo Avanzada**
 - Calculadora de riesgo y costes en tiempo real
@@ -38,7 +39,7 @@
 - Historial completo de posiciones cerradas
 - Vista de posiciones abiertas con estadísticas
 - Tabla filtrable y responsive
-- Modal detallado de información de posiciones
+- Modal detallado de información de posiciones abiertas
 
 ### 🎯 **Múltiples Perfiles de Trading**
 - Crear y gestionar perfiles de usuario independientes
@@ -51,12 +52,14 @@
 - Proxy servidor para conexiones a Bitget API
 - Validación y sanitización de credenciales
 - Soporte para múltiples cuentas
+- Creación de llave encriptada de acceso rápido
 
-### 🌙 **Tema Dark/Light**
+### 🌙 **Background Dark/Light y 3 temas**
 - Interfaz oscura profesional por defecto
 - Tema claro para trabajar en ambientes iluminados
 - Toggle rápido sin recarga de página
 - Persistencia de preferencia de tema
+- Emerald, Azure y safari, 3 temas a combinar con el fondo
 
 ### 📱 **Responsive Design**
 - Fully responsive en desktop, tablet y móvil
@@ -241,28 +244,6 @@ URL: `https://MikeSobrado.github.io/Trading-Dome`
 
 ---
 
-## 🐛 Troubleshooting
-
-### Problema: "No se conecta a Bitget API"
-**Solución**: 
-- Verifica que las credenciales sean correctas
-- Comprueba que el proxy esté ejecutándose
-- Revisa la consola del navegador (F12)
-
-### Problema: "Datos no se actualizan"
-**Solución**:
-- Refresca la página (F5)
-- Limpia el sessionStorage: `sessionStorage.clear()`
-- Verifica la conexión a internet
-
-### Problema: "Tema no persiste"
-**Solución**:
-- Comprueba que localStorage esté habilitado
-- Limpia datos del navegador
-- Intenta en otra pestaña
-
----
-
 ## 📝 Licencia
 
 Este proyecto está bajo licencia MIT. Consulta el archivo `LICENSE` para más detalles.
@@ -301,7 +282,6 @@ Si tienes preguntas o encuentras problemas:
 ## 🎯 Roadmap Futuro
 
 - [ ] Soporte para múltiples exchanges (Binance, Kraken, OKX)
-- [ ] Histórico de análisis y backtest
 - [ ] Alertas por email/SMS
 - [ ] App móvil nativa
 - [ ] Integración con bots de trading
@@ -311,7 +291,7 @@ Si tienes preguntas o encuentras problemas:
 ---
 
 **Última actualización**: Noviembre 2025  
-**Versión**: 1.0.0
+**Versión**: 2.0.0
 
 ```
 Trading-Dome/
@@ -401,156 +381,5 @@ Trading-Dome/
 │
 └── src/                              # ⚠️ Vacío (proyecto migrado a raíz)
 ```
-
-## 🚀 Inicialización
-
-1. **index.html** - Carga `app.js` y todos los módulos
-2. **app.js** - Entry point, inicializa módulos comunes
-3. **Módulos comunes** - event-bus, error-handler, validators, state-manager
-4. **Módulos específicos** - Se cargan bajo demanda (lazy loading)
-5. **UI** - Renderización inicial y navegación entre pestañas
-
-## 📡 Comunicación entre módulos
-
-### Event Bus
-Los módulos se comunican a través de eventos:
-
-```javascript
-// Emitir evento
-eventBus.emit('tab:changed', { tabId: 'analisis' });
-
-// Escuchar evento
-eventBus.on('tab:changed', (data) => {
-  console.log('Tab cambió a:', data.tabId);
-});
-```
-
-### State Manager
-Estado global compartido:
-
-```javascript
-// Obtener estado
-const state = stateManager.getState();
-
-// Actualizar estado
-stateManager.setState({ 
-  ui: { currentTab: 'analisis' } 
-});
-
-// Suscribirse a cambios
-stateManager.subscribe((newState, changes) => {
-  console.log('Estado cambió:', changes);
-});
-```
-
-## ⚙️ Configuración
-
-Ver `modules/config/config.js` para:
-- URLs de API
-- Timeouts
-- Configuración de UI
-- Parámetros de trading
-- etc.
-
-## 🐛 Manejo de errores
-
-```javascript
-// En cualquier módulo:
-errorHandler.handleError('MODULE_NAME_ERROR', error, {
-  context: 'additional info'
-});
-
-// Registrar callback:
-errorHandler.onError('API_ERROR', (errorObj) => {
-  console.log('Error de API:', errorObj);
-});
-```
-
-## 📦 Crear un nuevo módulo
-
-Plantilla para nuevo módulo en `modules/nuevo/`:
-
-```javascript
-// nuevo.js
-class NuevoModule {
-  constructor() {
-    this.container = null;
-  }
-
-  async initialize() {
-    console.log('[Nuevo] Inicializando...');
-    this.container = document.getElementById('nuevoTab');
-    eventBus.on('tab:changed', (data) => this.onTabChanged(data));
-    return true;
-  }
-
-  onTabChanged(data) {
-    if (data.tabId === 'nuevo') this.show();
-    else this.hide();
-  }
-
-  show() {
-    this.container.style.display = 'block';
-  }
-
-  hide() {
-    this.container.style.display = 'none';
-  }
-}
-
-const nuevoModule = new NuevoModule();
-```
-
-## 🔧 Desarrollo
-
-- Cada módulo es independiente
-- Los módulos se comunican por eventos/estado, NO directamente
-- Siempre usar errorHandler para errores
-- Respetar la estructura de carpetas
-- Un archivo JS + un archivo CSS por módulo (mínimo)
-
-## 🚀 Deployment
-
-### Ambientes soportados
-
-**1. Desarrollo Local** (`localhost:3000`)
-```bash
-npm start
-# → node server.js
-# → Sirve index.html + assets desde raíz
-# → API calls a http://localhost:3000 (mismo servidor)
-```
-
-**2. GitHub Pages** (Deploy estático)
-```
-Flujo:
-1. GitHub Pages sirve index.html + assets/
-2. bitget-connector.js detecta "github.com" 
-3. API calls redirigidas a proxy Render
-4. Render responde con datos (CORS habilitado)
-```
-
-**3. Render** (Deploy principal)
-```
-Flujo:
-1. npm start → node server.js en Render
-2. Express sirve index.html + assets/
-3. bitget-connector.js detecta onrender.com
-4. API calls a http://localhost:3000 (mismo servidor, sin CORS)
-```
-
-### Credenciales (Llave Segura.json)
-⚠️ **NUNCA commitear** - Se ignora en `.gitignore`
-- Para desarrollo local: crear en raíz
-- Para producción: Variables de entorno en Render
-
-## 📝 Notas
-
-- **NO** mezclar lógica de módulos
-- Usar camelCase para nombres de módulos
-- Usar snake_case para IDs de eventos
-- Documentar con comentarios JSDoc
-- **Estructura estable**: No mover carpetas sin actualizar referencias
-- **src/ vacío**: Proyecto migrado completamente a raíz
 
 ### 📋 Producido entre octubre y noviembre de 2025

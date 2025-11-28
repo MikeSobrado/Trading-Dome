@@ -13,21 +13,20 @@ class NavbarModule {
     this.container = null;
     this.currentTab = 'analisis';
     this.tabs = [
-      { id: 'analisis', name: 'Análisis', icon: 'bi-graph-up' },
+      { id: 'analisis', name: 'Decisión', icon: 'bi-table' },
       { id: 'riesgo', name: 'Gestión de Riesgo', icon: 'bi-calculator' },
-      { id: 'posiciones', name: 'Posiciones', icon: 'bi-pie-chart' },
-      { id: 'posiciones-abiertas', name: 'Abiertas', icon: 'bi-lightning' },
-      { id: 'monitoreo', name: 'Monitoreo', icon: 'bi-speedometer' },
+      { id: 'posiciones', name: 'Pos. Cerradas', icon: 'bi-clipboard-data' },
+      { id: 'posiciones-abiertas', name: 'Pos. Abiertas', icon: 'bi-clipboard-pulse' },
+      { id: 'monitoreo', name: 'Monitoreo', icon: 'bi-easel' },
       { id: 'apis', name: 'APIs', icon: 'bi-plug' }
     ];
     this.usefulLinks = [
-      { label: 'TradingView', url: 'https://es.tradingview.com/chart/', icon: 'bi-graph-up-arrow' },
-      { label: 'Fear & Greed Index', url: 'https://alternative.me/crypto/fear-and-greed-index/', icon: 'bi-emoji-frown' },
-      { label: 'Bitcoin Dominance', url: 'https://coinmarketcap.com/es/charts/bitcoin-dominance/', icon: 'bi-percent' },
-      { label: 'Coinglass Liquidations', url: 'https://www.coinglass.com/es/pro/futures/LiquidationHeatMap', icon: 'bi-fire' },
-      { label: 'Bitget Futures', url: 'https://www.bitget.com/es/futures/usdt/BTCUSDT', icon: 'bi-lightning-fill' },
-      { label: 'Soporte', url: 'mailto:wvnxzopeq@mozmail.com', icon: 'bi-life-preserver' },
-      { label: 'Ayuda', url: 'docs/instrucciones.pdf', icon: 'bi-question-circle' }
+      { label: 'TradingView', url: 'https://es.tradingview.com/chart/', icon: 'bi-graph-up' },
+      { label: 'CoinMarketCap', url: 'https://coinmarketcap.com/es/', icon: 'bi-coin' },
+      { label: 'Coinglass Liquidations', url: 'https://www.coinglass.com/es/pro/futures/LiquidationHeatMap', icon: 'bi-water' },
+      { label: 'Bitget Futures', url: 'https://www.bitget.com/es/futures/usdt/BTCUSDT', icon: 'bitget-logo', type: 'svg' },
+      { label: 'Guia de Usuario', url: 'docs/instrucciones.pdf', icon: 'bi-question-circle' },
+      { label: 'Soporte', url: 'mailto:wvnxzopeq@mozmail.com', icon: 'bi-life-preserver' }
     ];
   }
 
@@ -111,7 +110,7 @@ class NavbarModule {
           </button>
           <div class="navbar-dropdown">
             <button id="linksBtn" class="control-btn" title="Enlaces útiles">
-              <i class="bi bi-link-45deg"></i>
+              <i class="bi bi-at"></i>
             </button>
             <div class="dropdown-menu" id="linksMenu">
               <!-- Los enlaces se inyectarán aquí -->
@@ -233,12 +232,29 @@ class NavbarModule {
       return;
     }
 
-    const html = this.usefulLinks.map(link => `
-      <a href="${link.url}" target="_blank" rel="noopener noreferrer" title="${link.label}">
-        <i class="bi ${link.icon}"></i>
-        <span>${link.label}</span>
-      </a>
-    `).join('');
+    const html = this.usefulLinks.map(link => {
+      let iconHTML = '';
+      
+      if (link.type === 'svg') {
+        // SVG personalizado para Bitget (< a la izquierda más alto, > a la derecha más bajo)
+        iconHTML = `
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(0, 212, 255, 0.8)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="10 8 6 12 10 16"></polyline>
+            <polyline points="14 14 18 18 14 22"></polyline>
+          </svg>
+        `;
+      } else {
+        // Icono Bootstrap Icon
+        iconHTML = `<i class="bi ${link.icon}"></i>`;
+      }
+      
+      return `
+        <a href="${link.url}" target="_blank" rel="noopener noreferrer" title="${link.label}">
+          ${iconHTML}
+          <span>${link.label}</span>
+        </a>
+      `;
+    }).join('');
 
     linksMenu.innerHTML = html;
     console.log('[NavBar] 🔗 Enlaces renderizados:', this.usefulLinks.length);

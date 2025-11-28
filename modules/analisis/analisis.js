@@ -272,7 +272,7 @@ class AnalisisModule {
         <div class="analisis-decision-card">
           <div class="card-header">
             <h5 class="mb-0">
-              <i class="bi bi-lightning-charge me-2"></i>
+              <i class="bi bi-arrow-down-up"></i>
               Panel de Decisión
             </h5>
           </div>
@@ -322,7 +322,7 @@ class AnalisisModule {
         <div class="analisis-indicators-card">
           <div class="card-header">
             <h5 class="mb-0">
-              <i class="bi bi-graph-up me-2"></i>
+              <i class="bi bi-table me-2"></i>
               Indicadores
             </h5>
           </div>
