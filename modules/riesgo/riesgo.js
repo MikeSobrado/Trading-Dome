@@ -409,12 +409,12 @@ class RiesgoModule {
                   </div>
 
                   <div class="result-row">
-                    <span class="result-label">Pérdida Neta</span>
+                    <span class="result-label">Pérdida bruta</span>
                     <span class="result-value" id="result-perdida">$0.00</span>
                   </div>
 
                   <div class="result-row">
-                    <span class="result-label">Ganancia Neta</span>
+                    <span class="result-label">Ganancia bruta</span>
                     <span class="result-value" id="result-ganancia">$0.00</span>
                   </div>
 
