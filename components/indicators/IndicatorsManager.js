@@ -50,13 +50,32 @@ class IndicatorsManager {
 
   /**
    * Carga indicadores desde localStorage, profileManager o stateManager
+   * Prioridad: perfil activo > localStorage > defaults
    * @public
    */
   load() {
     try {
       const activeProfileId = profileManager?.activeProfile;
       
-      // Intentar cargar desde localStorage primero
+      // PRIORIDAD 1: Cargar del perfil activo (específico del perfil)
+      if (activeProfileId && profileManager?.profiles?.[activeProfileId]?.indicators) {
+        const profileData = profileManager.profiles[activeProfileId];
+        
+        if (Array.isArray(profileData.indicators) && profileData.indicators.length > 0) {
+          this.indicators = profileData.indicators;
+          // Cargar thresholds si existen
+          if (profileData.thresholds) {
+            this.thresholds.long = profileData.thresholds.long || 50;
+            this.thresholds.short = profileData.thresholds.short || 50;
+            this.thresholds.wait = profileData.thresholds.wait || 20;
+          }
+          console.log(`[IndicatorsManager] ✓ Indicadores cargados para perfil ${activeProfileId}`);
+          this._emitEvent('indicators:loaded', { count: this.indicators.length, profile: activeProfileId, source: 'profile' });
+          return;
+        }
+      }
+      
+      // PRIORIDAD 2: Cargar desde localStorage (global para todos los perfiles)
       const savedIndicators = localStorage.getItem('trading_dome_indicators');
       const savedThresholds = localStorage.getItem('trading_dome_thresholds');
       
@@ -71,32 +90,14 @@ class IndicatorsManager {
           this._emitEvent('indicators:loaded', { count: this.indicators.length, profile: activeProfileId, source: 'localStorage' });
           return;
         } catch (e) {
-          console.warn('[IndicatorsManager] ⚠️ Error parseando localStorage, intentando perfil...');
-        }
-      }
-      
-      // Intentar cargar desde profileManager (por perfil)
-      if (activeProfileId && profileManager?.profiles?.[activeProfileId]?.indicators) {
-        const profileData = profileManager.profiles[activeProfileId];
-        
-        if (Array.isArray(profileData.indicators) && profileData.indicators.length > 0) {
-          this.indicators = profileData.indicators;
-          // Cargar thresholds si existen
-          if (profileData.thresholds) {
-            this.thresholds.long = profileData.thresholds.long || 50;
-            this.thresholds.short = profileData.thresholds.short || 50;
-            this.thresholds.wait = profileData.thresholds.wait || 20;
-          }
-          console.log(`[IndicatorsManager] ✓ Indicadores cargados para perfil ${activeProfileId}`);
-          this._emitEvent('indicators:loaded', { count: this.indicators.length, profile: activeProfileId });
-          return;
+          console.warn('[IndicatorsManager] ⚠️ Error parseando localStorage');
         }
       }
 
-      // Fallback: crear defaults si no hay datos
+      // PRIORIDAD 3: Crear defaults si no hay datos
       this._createDefaults();
       console.log('[IndicatorsManager] ✓ Indicadores por defecto creados');
-      this._emitEvent('indicators:loaded', { count: this.indicators.length, profile: activeProfileId });
+      this._emitEvent('indicators:loaded', { count: this.indicators.length, profile: activeProfileId, source: 'defaults' });
     } catch (error) {
       console.error('[IndicatorsManager] ❌ Error cargando indicadores:', error);
       errorHandler?.handleError('INDICATORS_LOAD_ERROR', error);
