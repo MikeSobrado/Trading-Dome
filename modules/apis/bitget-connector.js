@@ -40,15 +40,9 @@ class BitgetConnector {
    */
   async testConnection(apiKey, secretKey, passphrase) {
     try {
-      console.log('[BitgetConnector] 🧪 Probando conexión a Bitget...');
-      console.log('[BitgetConnector] 📝 API Key recibida:', apiKey ? `${apiKey.substring(0, 5)}...` : 'VACÍA');
-      console.log('[BitgetConnector] 📝 Secret Key recibida:', secretKey ? '***' : 'VACÍA');
-      console.log('[BitgetConnector] 📝 Passphrase recibida:', passphrase ? '***' : 'VACÍA');
-
       // Obtener modo de trading
       const tradingMode = this.apiConfigManager.getTradingMode('bitget');
       const isPaperTrading = tradingMode === 'demo';
-      console.log(`[BitgetConnector] 🎯 Modo: ${isPaperTrading ? 'Paper Trading (Demo)' : 'Trading Real'}`);
 
       const proxyUrl = this.getProxyUrl();
 
@@ -63,13 +57,6 @@ class BitgetConnector {
         paptrading: isPaperTrading ? '1' : '0'
       };
 
-      console.log('[BitgetConnector] 📤 Body a enviar:', {
-        ...requestBody,
-        apiKey: apiKey ? `${apiKey.substring(0, 5)}...` : 'VACÍA',
-        apiSecret: '***',
-        apiPassphrase: '***'
-      });
-
       // Usar proxy del servidor
       const response = await fetch(`${proxyUrl}/api/bitget`, {
         method: 'POST',
@@ -82,21 +69,17 @@ class BitgetConnector {
 
       // Leer como texto primero para evitar "Body already consumed"
       const responseText = await response.text();
-      console.log('[BitgetConnector] 📥 Respuesta del proxy (status: ' + response.status + ')');
-
       // Intentar parsear como JSON
       let result;
       try {
         result = JSON.parse(responseText);
       } catch (parseErr) {
-        console.error('[BitgetConnector] ⚠️ Respuesta no es JSON válido:', responseText.substring(0, 500));
-        throw new Error('Respuesta del proxy no es válida: ' + responseText.substring(0, 200));
+        console.error('[BitgetConnector] ⚠️ Error parseando respuesta');
+        throw new Error('Respuesta del proxy no es válida');
       }
 
-      console.log('[BitgetConnector] 📊 Respuesta completa:', result);
-
       if (result.code === '00000' && result.data) {
-        console.log('[BitgetConnector] ✅ Conexión exitosa a Bitget');
+        console.log('[BitgetConnector] ✅ Conexión exitosa');
         return {
           success: true,
           accountId: result.data.uid || 'verified',
@@ -151,34 +134,6 @@ class BitgetConnector {
       );
 
       if (result.code === '00000' && result.data) {
-        console.log(`[BitgetConnector] ✓ Se obtuvieron ${result.data.length} posiciones abiertas`);
-        
-        // Loguear todos los campos de la primera posición para inspeccionar
-        if (result.data.length > 0) {
-          console.log('[BitgetConnector] 📊 CAMPOS DE POSICIÓN ABIERTA (all-position):');
-          const firstPos = result.data[0];
-          console.log('Campos disponibles:', Object.keys(firstPos).sort());
-          console.log('Datos completos:', firstPos);
-          
-          // Buscar campos relacionados con margen
-          const marginFields = Object.keys(firstPos).filter(k => k.toLowerCase().includes('margin') || k.toLowerCase().includes('maint') || k.toLowerCase().includes('leverage'));
-          if (marginFields.length > 0) {
-            console.log('[BitgetConnector] 💰 Campos de margen encontrados:', marginFields);
-            marginFields.forEach(field => {
-              console.log(`   - ${field}: ${firstPos[field]}`);
-            });
-          }
-
-          // Buscar campos de precio
-          const priceFields = Object.keys(firstPos).filter(k => k.toLowerCase().includes('price') || k.toLowerCase().includes('pnl') || k.toLowerCase().includes('profit'));
-          if (priceFields.length > 0) {
-            console.log('[BitgetConnector] 💹 Campos de precio encontrados:', priceFields);
-            priceFields.forEach(field => {
-              console.log(`   - ${field}: ${firstPos[field]}`);
-            });
-          }
-        }
-        
         return result.data;
       } else {
         throw new Error(result.msg || 'Error obteniendo posiciones');
@@ -407,12 +362,9 @@ class BitgetConnector {
    */
   async makeRequest(method, path, params, credentials) {
     try {
-      console.log(`[BitgetConnector] 📡 ${method} ${path} (vía proxy del servidor)`);
-
       // Obtener modo de trading
       const tradingMode = this.apiConfigManager.getTradingMode('bitget');
       const isPaperTrading = tradingMode === 'demo';
-      console.log(`[BitgetConnector] 🎯 Modo: ${isPaperTrading ? 'Paper Trading (Demo)' : 'Trading Real'} (tradingMode=${tradingMode})`);
 
       // Enviar al proxy del servidor que firma la petición
       // El servidor generará la firma con crypto.createHmac (confiable)
@@ -460,7 +412,6 @@ class BitgetConnector {
    * @returns {string} Firma en base64
    */
   generateSignature(method, requestPath, body, timestamp, secretKey) {
-    console.log('[BitgetConnector] ℹ️ Nota: La firma ahora se genera en el servidor (más seguro)');
     return 'server-generated';
   }
 
