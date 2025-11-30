@@ -49,12 +49,31 @@ class IndicatorsManager {
    */
 
   /**
-   * Carga indicadores desde profileManager o stateManager
+   * Carga indicadores desde localStorage, profileManager o stateManager
    * @public
    */
   load() {
     try {
       const activeProfileId = profileManager?.activeProfile;
+      
+      // Intentar cargar desde localStorage primero
+      const savedIndicators = localStorage.getItem('trading_dome_indicators');
+      const savedThresholds = localStorage.getItem('trading_dome_thresholds');
+      
+      if (savedIndicators) {
+        try {
+          this.indicators = JSON.parse(savedIndicators);
+          if (savedThresholds) {
+            const parsed = JSON.parse(savedThresholds);
+            this.thresholds = { ...this.thresholds, ...parsed };
+          }
+          console.log(`[IndicatorsManager] ✓ Indicadores cargados desde localStorage`);
+          this._emitEvent('indicators:loaded', { count: this.indicators.length, profile: activeProfileId, source: 'localStorage' });
+          return;
+        } catch (e) {
+          console.warn('[IndicatorsManager] ⚠️ Error parseando localStorage, intentando perfil...');
+        }
+      }
       
       // Intentar cargar desde profileManager (por perfil)
       if (activeProfileId && profileManager?.profiles?.[activeProfileId]?.indicators) {
@@ -86,14 +105,24 @@ class IndicatorsManager {
   }
 
   /**
-   * Guarda indicadores usando el servicio de datos centralizado
+   * Guarda indicadores en localStorage y profileDataService
    * @public
    */
   save() {
     try {
       const activeProfileId = profileManager?.activeProfile;
+      
+      // Guardar en localStorage
+      localStorage.setItem('trading_dome_indicators', JSON.stringify(this.indicators));
+      localStorage.setItem('trading_dome_thresholds', JSON.stringify({
+        long: this.thresholds.long,
+        short: this.thresholds.short,
+        wait: this.thresholds.wait
+      }));
+      
       if (!activeProfileId) {
-        console.warn('[IndicatorsManager] ⚠️ No active profile');
+        console.warn('[IndicatorsManager] ⚠️ No active profile, solo guardado en localStorage');
+        this._emitEvent('indicators:saved', { count: this.indicators.length, source: 'localStorage' });
         return;
       }
 
@@ -105,7 +134,7 @@ class IndicatorsManager {
         wait: this.thresholds.wait
       });
 
-      console.log(`[IndicatorsManager] ✓ Indicadores guardados para perfil ${activeProfileId}`);
+      console.log(`[IndicatorsManager] ✓ Indicadores guardados (localStorage + perfil ${activeProfileId})`);
       this._emitEvent('indicators:saved', { count: this.indicators.length, profile: activeProfileId });
     } catch (error) {
       console.error('[IndicatorsManager] ❌ Error guardando indicadores:', error);

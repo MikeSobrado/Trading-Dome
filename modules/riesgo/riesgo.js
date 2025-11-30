@@ -38,8 +38,9 @@ class RiesgoModule {
     this.profileDataUnsubscriber = null; // Unsubscriber del evento profile:changed (NO se limpia en destroy)
     this.domListenersAttached = false; // Flag para evitar re-adjuntar listeners de DOM
     
-    // Estado de riesgo - SIEMPRE crear copia nueva de defaults
-    this.riskState = { ...DEFAULT_RISK_STATE };
+    // Estado de riesgo - cargar desde localStorage o usar defaults
+    const savedRiskState = localStorage.getItem('trading_dome_risk_state');
+    this.riskState = savedRiskState ? JSON.parse(savedRiskState) : { ...DEFAULT_RISK_STATE };
   }
 
   /**
@@ -698,6 +699,9 @@ class RiesgoModule {
       riskState: this.riskState,
       riskResults: results 
     });
+
+    // Guardar en localStorage para persistencia entre sesiones
+    localStorage.setItem('trading_dome_risk_state', JSON.stringify(this.riskState));
 
     // Emitir evento
     eventBus?.emit('risk:updated', { results, hasWarning: results.tieneAlerta });

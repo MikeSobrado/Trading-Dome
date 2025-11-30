@@ -8,12 +8,17 @@
  */
 
 class KeepAliveService {
-  constructor(apiConfigManager, bitgetConnector) {
-    this.apiConfigManager = apiConfigManager;
-    this.bitgetConnector = bitgetConnector;
+  constructor() {
+    // Usar variables globales expuestas por apisModule
+    this.apiConfigManager = window.apiConfigManager;
+    this.bitgetConnector = window.bitgetConnector;
     this.keepAliveInterval = null;
     this.keepAliveMs = 30000; // Ping cada 30 segundos
     this.isActive = false;
+
+    if (!this.apiConfigManager || !this.bitgetConnector) {
+      console.warn('[KeepAlive] ⚠️ Dependencias no disponibles globalmente');
+    }
   }
 
   /**
@@ -21,17 +26,10 @@ class KeepAliveService {
    */
   start() {
     if (this.keepAliveInterval) {
-      console.log('[KeepAlive] ⚠️ Servicio ya está activo');
       return;
     }
 
-    // Solo iniciar si hay credenciales configuradas
-    if (!this.apiConfigManager.isConfigured('bitget')) {
-      console.log('[KeepAlive] ⚠️ Bitget no configurado, keep-alive no iniciado');
-      return;
-    }
-
-    console.log('[KeepAlive] ▶️ Iniciando servicio keep-alive (cada 30s)');
+    console.log('[KeepAlive] ✓ Servicio iniciado (ping cada 30s)');
     this.isActive = true;
 
     // Primera petición inmediata
@@ -50,17 +48,14 @@ class KeepAliveService {
   async sendKeepAlive() {
     try {
       if (!this.apiConfigManager.isConfigured('bitget')) {
-        console.log('[KeepAlive] ℹ️ Credenciales no configuradas, deteniendo keep-alive');
-        this.stop();
         return;
       }
 
-      // Petición ligera: solo obtener info de la cuenta
-      await this.bitgetConnector.getAccountInfo();
-      console.log('[KeepAlive] ✓ Ping al proxy enviado correctamente');
+      // Usar getOpenPositions en lugar de getAccountInfo (más confiable)
+      // Es una petición ligera que ya sabemos que funciona
+      await this.bitgetConnector.getOpenPositions();
     } catch (error) {
-      console.warn('[KeepAlive] ⚠️ Error en keep-alive:', error.message);
-      // No detener el servicio, solo loguear el error
+      // Silenciar errores - el servicio continúa intentando
       // El proxy podría estar temporalmente indisponible
     }
   }
@@ -73,7 +68,6 @@ class KeepAliveService {
       clearInterval(this.keepAliveInterval);
       this.keepAliveInterval = null;
       this.isActive = false;
-      console.log('[KeepAlive] ⏹️ Servicio keep-alive detenido');
     }
   }
 

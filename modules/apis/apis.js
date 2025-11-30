@@ -35,6 +35,7 @@ class ApisModule {
       
       // Exponer a window para que otros módulos puedan usarlo
       window.bitgetConnector = this.bitgetConnector;
+      window.apiConfigManager = this.apiConfigManager;
       
       // Suscribirse a evento tab:changed (NUNCA se limpia)
       this.tabChangeUnsubscriber = eventBus?.on('tab:changed', (data) => this.onTabChanged(data));

@@ -189,11 +189,8 @@ class TradingDomeApp {
       }
 
       // Inicializar Keep-Alive Service (evitar hibernación del proxy)
-      if (typeof KeepAliveService !== 'undefined' && typeof apisModule !== 'undefined') {
-        const keepAliveService = new KeepAliveService(
-          apisModule.apiConfigManager,
-          apisModule.bitgetConnector
-        );
+      if (typeof KeepAliveService !== 'undefined') {
+        const keepAliveService = new KeepAliveService();
         keepAliveService.start();
         this.modules.keepAliveService = keepAliveService;
         console.log('[APP] ✓ Keep-Alive service iniciado (proxy will stay warm)');

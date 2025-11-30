@@ -19,6 +19,7 @@ class ProfileManager {
    */
   initialize() {
     console.log('[ProfileManager] 🎯 Inicializando gestor de perfiles...');
+    this.loadFromLocalStorage();
     this.loadFromStateManager();
     
     // Auto-crear perfil por defecto si no hay ninguno
@@ -29,14 +30,34 @@ class ProfileManager {
   }
 
   /**
+   * Carga perfiles del localStorage
+   */
+  loadFromLocalStorage() {
+    try {
+      const savedProfiles = localStorage.getItem('trading_dome_profiles');
+      const savedActiveProfile = localStorage.getItem('trading_dome_active_profile');
+      
+      if (savedProfiles) {
+        this.profiles = JSON.parse(savedProfiles);
+        this.activeProfile = savedActiveProfile || 'bitcoin';
+        console.log(`[ProfileManager] ✓ ${Object.keys(this.profiles).length} perfiles cargados desde localStorage`);
+        return true;
+      }
+    } catch (error) {
+      console.error('[ProfileManager] ❌ Error cargando de localStorage:', error);
+    }
+    return false;
+  }
+
+  /**
    * Carga perfiles del stateManager
    */
   loadFromStateManager() {
     const state = stateManager?.getState();
     if (state?.profiles) {
       this.profiles = state.profiles.list || this.profiles;
-      this.activeProfile = state.profiles.activeProfile || 'bitcoin';
-      console.log('[ProfileManager] ✓ Perfiles cargados');
+      this.activeProfile = state.profiles.activeProfile || this.activeProfile || 'bitcoin';
+      console.log('[ProfileManager] ✓ Perfiles sincronizados desde stateManager');
     }
   }
 
@@ -111,6 +132,10 @@ class ProfileManager {
         list: this.profiles
       }
     });
+
+    // Guardar en localStorage para persistencia
+    localStorage.setItem('trading_dome_profiles', JSON.stringify(this.profiles));
+    localStorage.setItem('trading_dome_active_profile', profileId);
 
     console.log(`[ProfileManager] ✓ Perfil cambiado a: ${profileId}`);
     
@@ -197,6 +222,10 @@ class ProfileManager {
         list: this.profiles
       }
     });
+
+    // Guardar en localStorage para persistencia
+    localStorage.setItem('trading_dome_profiles', JSON.stringify(this.profiles));
+    localStorage.setItem('trading_dome_active_profile', this.activeProfile);
 
     console.log(`[ProfileManager] ✓ Perfil creado: ${profileName} (${profileId})`);
     
