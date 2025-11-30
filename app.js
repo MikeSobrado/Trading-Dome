@@ -187,6 +187,17 @@ class TradingDomeApp {
         this.loadedModules.add('apis');
         console.log('[APP] ✓ APIs inicializado (bitgetConnector disponible globalmente)');
       }
+
+      // Inicializar Keep-Alive Service (evitar hibernación del proxy)
+      if (typeof KeepAliveService !== 'undefined' && typeof apisModule !== 'undefined') {
+        const keepAliveService = new KeepAliveService(
+          apisModule.apiConfigManager,
+          apisModule.bitgetConnector
+        );
+        keepAliveService.start();
+        this.modules.keepAliveService = keepAliveService;
+        console.log('[APP] ✓ Keep-Alive service iniciado (proxy will stay warm)');
+      }
       
       console.log('[APP] ✓ Módulos críticos cargados (otros se cargarán bajo demanda)');
     } catch (error) {
